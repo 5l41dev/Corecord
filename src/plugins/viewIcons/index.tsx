@@ -19,12 +19,15 @@
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
 import { ImageIcon } from "@components/Icons";
+import { copyToClipboard } from "@utils/clipboard";
 import { Devs } from "@utils/constants";
 import { openImageModal } from "@utils/discord";
 import definePlugin, { OptionType } from "@utils/types";
 import type { Channel, Guild, User } from "@vencord/discord-types";
-import { GuildMemberStore, IconUtils, Menu } from "@webpack/common";
-import type { MouseEvent } from "react";
+import { ContextMenuApi, GuildMemberStore, IconUtils, Menu, Toasts } from "@webpack/common";
+import type { MouseEvent as ReactMouseEvent } from "react";
+
+type MouseEvent = globalThis.MouseEvent;
 
 interface UserContextProps {
     channel: Channel;
@@ -43,7 +46,7 @@ interface GroupDMContextProps {
 const settings = definePluginSettings({
     format: {
         type: OptionType.SELECT,
-        description: "Choose the image format to use for non-animated images. Animated images will always use .webp",
+        description: "Choose the image format to use for non-animated images. Animated images will always use .gif",
         options: [
             {
                 label: "webp",
@@ -68,14 +71,14 @@ const settings = definePluginSettings({
     }
 });
 
-const openAvatar = (url: string, event?: MouseEvent) => openImage({ url, width: 512, height: 512, event });
-const openBanner = (url: string, event?: MouseEvent) => openImage({ url, width: 1024, event });
+const openAvatar = (url: string, event?: ReactMouseEvent) => openImage({ url, width: 512, height: 512, event });
+const openBanner = (url: string, event?: ReactMouseEvent) => openImage({ url, width: 1024, event });
 
 interface OpenImageProps {
     url: string;
     width: number;
     height?: number;
-    event?: MouseEvent;
+    event?: ReactMouseEvent;
 }
 
 function openImage({ url, width, height, event }: OpenImageProps) {
@@ -101,6 +104,86 @@ function openImage({ url, width, height, event }: OpenImageProps) {
         width,
         height
     });
+}
+
+function ImageModalContextMenu({ src, target }: { src: string; target?: HTMLElement | null }) {
+    return (
+        <Menu.Menu
+            navId="image-context"
+            onClose={() => ContextMenuApi.closeContextMenu()}
+            aria-label="Image Options"
+            contextMenuAPIArguments={[{ src, target }]}
+        >
+            <Menu.MenuGroup id="copy-native-link">
+                <Menu.MenuItem
+                    id="copy-image-link"
+                    label="Copy Link"
+                    action={() => {
+                        copyToClipboard(src);
+                        Toasts.show(Toasts.create("Copied image link!", Toasts.Type.SUCCESS));
+                    }}
+                />
+            </Menu.MenuGroup>
+        </Menu.Menu>
+    );
+}
+
+let onContextMenuListener: ((e: MouseEvent) => void) | null = null;
+
+function setupModalContextMenuListener() {
+    if (onContextMenuListener) return;
+
+    onContextMenuListener = (e: MouseEvent) => {
+        const target = e.target as HTMLElement | null;
+        if (!target) return;
+
+        // Strict check: Ignore normal UI elements like user profiles, popouts, member lists, server bar, channels, chat messages
+        const isStandardUi = target.closest?.("[class*='userPopout'], [class*='userProfile'], [class*='member'], [class*='guild'], [class*='channel'], [class*='sidebar'], [class*='chatContent']");
+        const mediaViewerModal = target.closest?.("[class*='mediaViewer'], [class*='carouselModal'], [class*='imageWrapper']");
+
+        // If it's standard UI and NOT a fullscreen media viewer, do nothing (let native context menus open)
+        if (isStandardUi && !mediaViewerModal) return;
+
+        // Must be explicitly inside a fullscreen media/carousel viewer modal
+        if (!mediaViewerModal) {
+            const isFullscreenModal = target.closest?.("[role='dialog'][class*='modal']");
+            if (!isFullscreenModal) return;
+
+            const hasFullscreenImage = isFullscreenModal.querySelector?.("[class*='mediaViewer'], [class*='imageWrapper'], img[src*='cdn.discordapp.com'], img[src*='media.discordapp.net']");
+            if (!hasFullscreenImage) return;
+        }
+
+        let imgSrc: string | null = null;
+
+        if (target instanceof HTMLImageElement && target.src) {
+            imgSrc = target.src;
+        } else {
+            const imgTag = (target.querySelector?.("img") || target.closest?.("[class*='mediaViewer'], [class*='imageWrapper'], [role='dialog']")?.querySelector?.("img")) as HTMLImageElement | null;
+            if (imgTag?.src) imgSrc = imgTag.src;
+        }
+
+        if (!imgSrc) {
+            const bg = target.style?.backgroundImage || (window.getComputedStyle ? window.getComputedStyle(target).backgroundImage : "");
+            if (bg && bg.includes("url(")) {
+                const match = bg.match(/url\(["']?(.*?)["']?\)/);
+                if (match?.[1]) imgSrc = match[1];
+            }
+        }
+
+        if (imgSrc) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            ContextMenuApi.openContextMenu(e as any, () => (
+                <ImageModalContextMenu
+                    src={imgSrc!}
+                    target={target}
+                />
+            ));
+        }
+    };
+
+    window.addEventListener("contextmenu", onContextMenuListener, true);
 }
 
 const UserContext: NavContextMenuPatchCallback = (children, { user, guildId }: UserContextProps) => {
@@ -217,6 +300,17 @@ export default definePlugin({
 
     openAvatar,
     openBanner,
+
+    start() {
+        setupModalContextMenuListener();
+    },
+
+    stop() {
+        if (onContextMenuListener) {
+            window.removeEventListener("contextmenu", onContextMenuListener, true);
+            onContextMenuListener = null;
+        }
+    },
 
     contextMenus: {
         "user-context": UserContext,

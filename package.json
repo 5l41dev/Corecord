@@ -1,8 +1,8 @@
 {
-    "name": "equicord",
+    "name": "corecord",
     "private": "true",
     "version": "1.15.2.0",
-    "description": "The other cutest Discord client mod",
+    "description": "Corecord, a Discord client mod forked from Equicord",
     "homepage": "https://github.com/Equicord/Equicord#readme",
     "bugs": {
         "url": "https://github.com/Equicord/Equicord/issues"
@@ -28,9 +28,9 @@
         "generateEquicordPluginJson": "tsx scripts/generatePluginList.ts --equicord",
         "generateVencordPluginJson": "tsx scripts/generatePluginList.ts --vencord",
         "generateTypes": "tspc --emitDeclarationOnly --declaration --outDir packages/vencord-types --allowJs false",
-        "inject": "node scripts/runInstaller.mjs -- --install",
-        "uninject": "node scripts/runInstaller.mjs -- --uninstall",
-        "repair": "node scripts/runInstaller.mjs -- --repair",
+        "inject": "node scripts/corecordInject.mjs --install",
+        "uninject": "node scripts/corecordInject.mjs --uninstall",
+        "repair": "node scripts/corecordInject.mjs --repair",
         "lint": "eslint",
         "lint-styles": "stylelint \"src/**/*.css\" --ignore-pattern src/userplugins",
         "lint-styles:fix": "pnpm lint-styles --fix",

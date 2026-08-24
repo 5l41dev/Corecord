@@ -7,6 +7,7 @@
 import "./styles.css";
 
 import { BaseText } from "@components/BaseText";
+import { CORECORD_ICON_URL } from "@utils/constants";
 import { Tooltip } from "@webpack/common";
 
 export function StockPluginsCard({ totalStockPlugins, enabledStockPlugins }) {
@@ -21,6 +22,34 @@ export function StockPluginsCard({ totalStockPlugins, enabledStockPlugins }) {
                 <div className="vc-plugin-stats-card-section">
                     <BaseText size="md" weight="semibold">Total Plugins</BaseText>
                     <BaseText size="xl" weight="bold">{totalStockPlugins}</BaseText>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export function CorecordPluginsCard({ totalCorecordPlugins, enabledCorecordPlugins }) {
+    return (
+        <div className="vc-plugin-stats vc-stockplugins-stats-card">
+            <div className="vc-plugin-stats-card-container">
+                <div className="vc-plugin-stats-card-section">
+                    <BaseText size="md" weight="semibold">
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                            <img src={CORECORD_ICON_URL} style={{ width: "16px", height: "16px", borderRadius: "50%" }} />
+                            Enabled Corecord
+                        </span>
+                    </BaseText>
+                    <BaseText size="xl" weight="bold">{enabledCorecordPlugins}</BaseText>
+                </div>
+                <div className="vc-plugin-stats-card-divider"></div>
+                <div className="vc-plugin-stats-card-section">
+                    <BaseText size="md" weight="semibold">
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                            <img src={CORECORD_ICON_URL} style={{ width: "16px", height: "16px", borderRadius: "50%" }} />
+                            Total Corecord
+                        </span>
+                    </BaseText>
+                    <BaseText size="xl" weight="bold">{totalCorecordPlugins}</BaseText>
                 </div>
             </div>
         </div>

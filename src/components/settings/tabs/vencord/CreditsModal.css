@@ -1,0 +1,73 @@
+.vc-credits-brand-icon {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.vc-credits-root {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.vc-credits-entry {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    background: var(--background-secondary);
+}
+
+.vc-credits-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.vc-credits-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.vc-credits-name {
+    font-weight: 600;
+    color: var(--text-normal);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.vc-credits-role {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.vc-credits-github {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--background-secondary-alt);
+    color: var(--text-normal);
+    cursor: pointer;
+    transition: 0.1s ease-out;
+    flex-shrink: 0;
+}
+
+.vc-credits-github:hover {
+    background: var(--background-tertiary);
+    transform: translateY(-1px);
+}
+
+.vc-credits-github-icon {
+    width: 20px;
+    height: 20px;
+}

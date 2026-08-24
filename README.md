@@ -1,40 +1,39 @@
-# [<img src="./browser/icon.png" width="40" align="left" alt="Equicord">](https://github.com/Equicord/Equicord) Equicord
+# [<img src="https://i.imgur.com/Gr7MMmg.png" width="40" align="left" alt="Corecord">](https://github.com/Corecord/Corecord) Corecord
 
-[![Equibop](https://img.shields.io/badge/Equibop-grey?style=flat)](https://github.com/Equicord/Equibop)
-[![Tests](https://github.com/Equicord/Equicord/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/Equicord/Equicord/actions/workflows/test.yml)
-[![Discord](https://img.shields.io/discord/1173279886065029291.svg?color=768AD4&label=Discord&logo=discord&logoColor=white)](https://equicord.org/discord)
-
-Equicord is a fork of [Vencord](https://github.com/Vendicated/Vencord), with over 300+ plugins.
-
-You can join our [Discord server](https://equicord.org/discord) for commits, changes, chatting, or even support.
+Corecord is a fork of [Equicord](https://github.com/Equicord/Equicord), which is itself a fork of [Vencord](https://github.com/Vendicated/Vencord), with over 300+ plugins.
 
 ### Included Plugins
 
 Our included plugins can be found [here](https://equicord.org/plugins).
 
-## Installing / Uninstalling
+## Installing / Uninstalling (Windows)
 
-Windows
+PowerShell scripts, no external installer binary needed. Download the repo (or clone it) and run:
 
-- [GUI](https://github.com/Equicord/Equilotl/releases/latest/download/Equilotl.exe)
-- [CLI](https://github.com/Equicord/Equilotl/releases/latest/download/EquilotlCli.exe)
+| Script         | What it does                                            |
+| -------------- | ------------------------------------------------------- |
+| `install.ps1`  | One-shot: clone + deps + build + inject                 |
+| `inject.ps1`   | Build (if needed) and inject into Discord               |
+| `uninject.ps1` | Remove Corecord and restore vanilla Discord             |
+| `update.ps1`   | Pull latest, rebuild, reinject                          |
 
-MacOS
-
-- [X64 GUI](https://github.com/Equicord/Equilotl/releases/latest/download/Equilotl-darwin-x64.zip)
-- [ARM64 GUI](https://github.com/Equicord/Equilotl/releases/latest/download/Equilotl-darwin-arm64.zip)
-
-Linux
-
-- [GUI](https://github.com/Equicord/Equilotl/releases/latest/download/Equilotl-x11)
-- [CLI](https://github.com/Equicord/Equilotl/releases/latest/download/EquilotlCli-Linux)
-- [AUR](https://aur.archlinux.org/packages?O=0&K=equicord)
-
-```shell
-bash -c "$(curl -sS https://raw.githubusercontent.com/Equicord/Equilotl/refs/heads/main/install.sh)"
+```powershell
+# inside the checkout
+.\install.ps1
 ```
 
-## Installing Equicord Devbuild
+Remote one-liner (replace the URL with your repo once it exists):
+
+```powershell
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Corecord/Corecord/main/install.ps1 -OutFile $env:TEMP\corecord-install.ps1; & $env:TEMP\corecord-install.ps1"
+```
+
+Installing over an old Equicord/Vencord patch replaces it automatically. Any existing patch is
+restored to vanilla Discord first, then Corecord is injected.
+
+> :exclamation: **IMPORTANT** Make sure you aren't using an admin/root terminal from here onwards. It **will** mess up your Discord/Corecord instance and you **will** most likely have to reinstall.
+
+## Installing Corecord Devbuild (any OS)
 
 ### Dependencies
 
@@ -48,13 +47,13 @@ Install `pnpm`:
 npm i -g pnpm
 ```
 
-> :exclamation: **IMPORTANT** Make sure you aren't using an admin/root terminal from here onwards. It **will** mess up your Discord/Equicord instance and you **will** most likely have to reinstall.
+> :exclamation: **IMPORTANT** Make sure you aren't using an admin/root terminal from here onwards. It **will** mess up your Discord/Corecord instance and you **will** most likely have to reinstall.
 
-Clone Equicord:
+Clone Corecord:
 
 ```shell
-git clone https://github.com/Equicord/Equicord
-cd Equicord
+git clone https://github.com/Corecord/Corecord
+cd Corecord
 ```
 
 Install dependencies:
@@ -63,39 +62,41 @@ Install dependencies:
 pnpm install --frozen-lockfile
 ```
 
-Build Equicord:
+Build Corecord:
 
 ```shell
 pnpm build
 ```
 
-Inject Equicord into your desktop client:
+Inject Corecord into your desktop client:
 
 ```shell
 pnpm inject
 ```
 
-Build Equicord for web:
+Build Corecord for web:
 
 ```shell
 pnpm buildWeb
 ```
 
-After building Equicord's web extension, locate the appropriate ZIP file in the `dist` directory and follow your browser’s guide for installing custom extensions, if supported.
+After building Corecord's web extension, locate the appropriate ZIP file in the `dist` directory and follow your browser’s guide for installing custom extensions, if supported.
 
 Note: Firefox extension zip requires Firefox for developers
 
 ## Credits
 
-Thank you to [Vendicated](https://github.com/Vendicated) for creating [Vencord](https://github.com/Vendicated/Vencord) & [Suncord](https://github.com/verticalsync/Suncord) by [verticalsync](https://github.com/verticalsync) for helping when needed.
+Corecord is maintained by [5 (5l41)](https://github.com/5l41dev).
+
+Thank you to [Vendicated](https://github.com/Vendicated) for creating [Vencord](https://github.com/Vendicated/Vencord), [Equicord](https://github.com/Equicord/Equicord) for the fork this is based on, and [Suncord](https://github.com/verticalsync/Suncord) by [verticalsync](https://github.com/verticalsync) for helping when needed.
 
 ## Star History
 
-<a href="https://star-history.com/#Equicord/Equicord&Timeline">
+<a href="https://star-history.com/#Corecord/Corecord&Timeline">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline&theme=dark&sealed_token=64drv2U7WiV6dQ5VRbOZdxHT3mRzxUzhVvfm5qt1VRpGjVPje0PbObjibX2FYe4zd-h36lCAGZ873gAgb_5_tAzUBixUVbtaLHqy1fNH6PkQP_PqPdKztatlI2s17T9IUFzRyhYynmJ1-H4idFFzEAMN1gRZlVvvmJ71P0LovJPOIqTT7uHIubWcHzxC" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline&sealed_token=64drv2U7WiV6dQ5VRbOZdxHT3mRzxUzhVvfm5qt1VRpGjVPje0PbObjibX2FYe4zd-h36lCAGZ873gAgb_5_tAzUBixUVbtaLHqy1fNH6PkQP_PqPdKztatlI2s17T9IUFzRyhYynmJ1-H4idFFzEAMN1gRZlVvvmJ71P0LovJPOIqTT7uHIubWcHzxC" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline&sealed_token=64drv2U7WiV6dQ5VRbOZdxHT3mRzxUzhVvfm5qt1VRpGjVPje0PbObjibX2FYe4zd-h36lCAGZ873gAgb_5_tAzUBixUVbtaLHqy1fNH6PkQP_PqPdKztatlI2s17T9IUFzRyhYynmJ1-H4idFFzEAMN1gRZlVvvmJ71P0LovJPOIqTT7uHIubWcHzxC" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Corecord/Corecord&type=Timeline&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Corecord/Corecord&type=Timeline" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Corecord/Corecord&type=Timeline" />
   </picture>
 </a>
 
@@ -103,17 +104,17 @@ Thank you to [Vendicated](https://github.com/Vendicated) for creating [Vencord](
 
 Discord is trademark of Discord Inc., and solely mentioned for the sake of descriptivity.
 Mentioning it does not imply any affiliation with or endorsement by Discord Inc.
-Vencord is not connected to Equicord and as such, all donation links go to Vendicated's donation link.
+Vencord is not connected to Corecord and as such, donation links in Corecord go to Equicord's donation page.
 
 <details>
-<summary>Using Equicord violates Discord's terms of service</summary>
+<summary>Using Corecord violates Discord's terms of service</summary>
 
 Client modifications are against Discord’s Terms of Service.
 
 However, Discord is pretty indifferent about them and there are no known cases of users getting banned for using client mods! So you should generally be fine if you don’t use plugins that implement abusive behaviour. But no worries, all inbuilt plugins are safe to use!
 
-Regardless, if your account is essential to you and getting disabled would be a disaster for you, you should probably not use any client mods (not exclusive to Equicord), just to be safe.
+Regardless, if your account is essential to you and getting disabled would be a disaster for you, you should probably not use any client mods (not exclusive to Corecord), just to be safe.
 
-Additionally, make sure not to post screenshots with Equicord in a server where you might get banned for it.
+Additionally, make sure not to post screenshots with Corecord in a server where you might get banned for it.
 
 </details>

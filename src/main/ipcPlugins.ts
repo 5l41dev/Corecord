@@ -21,6 +21,8 @@ import { ipcMain } from "electron";
 
 import PluginNatives from "~pluginNatives";
 
+import * as ThemeLibraryNative from "./themeLibrary";
+
 const PluginIpcMappings = {} as Record<string, Record<string, string>>;
 export type PluginIpcMappings = typeof PluginIpcMappings;
 
@@ -32,6 +34,18 @@ for (const [plugin, methods] of Object.entries(PluginNatives)) {
 
     for (const [methodName, method] of entries) {
         const key = `VencordPluginNative_${plugin}_${methodName}`;
+        ipcMain.handle(key, method);
+        mappings[methodName] = key;
+    }
+}
+
+// Corecord: the Theme Library is a core tab (not a plugin), so its native
+// helpers are registered here instead of via ~pluginNatives.
+const themeLibraryMethods = Object.entries(ThemeLibraryNative);
+if (themeLibraryMethods.length) {
+    const mappings = PluginIpcMappings.ThemeLibrary = {};
+    for (const [methodName, method] of themeLibraryMethods) {
+        const key = `VencordPluginNative_ThemeLibrary_${methodName}`;
         ipcMain.handle(key, method);
         mappings[methodName] = key;
     }

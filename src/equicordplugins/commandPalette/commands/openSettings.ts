@@ -32,7 +32,7 @@ export const DISCORD_SETTINGS_ROUTES: SettingsRoute[] = [
     { route: "equicord_main", label: "Equicord", keywords: ["vencord"] },
     { route: "equicord_plugins", label: "Equicord Plugins", keywords: ["plugins"] },
     { route: "equicord_themes", label: "Equicord Themes", keywords: ["themes", "css"] },
-    { route: "equicord_updater", label: "Equicord Updater", keywords: ["update"] },
+    { route: "equicord_updater", label: "Corecord Updater", keywords: ["update"] },
     { route: "equicord_changelog", label: "Equicord Changelog", keywords: ["changelog", "news"] }
 ];
 

@@ -10,13 +10,13 @@ import { Button } from "@components/Button";
 import { Card } from "@components/Card";
 import { HeadingPrimary } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
-import type { Theme, ThemeLikeProps } from "@equicordplugins/themeLibrary/types";
 import { proxyLazy } from "@utils/lazy";
 import { Margins } from "@utils/margins";
 import { User } from "@vencord/discord-types";
 import { FluxDispatcher, Modal, openModal, Parser, React, UserStore, UserUtils } from "@webpack/common";
 import { Constructor } from "type-fest";
 
+import type { Theme, ThemeLikeProps } from "../types";
 import { LikesComponent } from "./LikesComponent";
 import { ThemeInfoModal } from "./ThemeInfoModal";
 import { apiUrl } from "./ThemeTab";
@@ -24,8 +24,10 @@ import { apiUrl } from "./ThemeTab";
 interface ThemeCardProps {
     theme: Theme;
     themeLinks: string[];
+    enabledThemeLinks: string[];
     likedThemes?: ThemeLikeProps;
     setThemeLinks: (links: string[]) => void;
+    setEnabledThemeLinks: (links: string[]) => void;
     removePreview?: boolean;
     removeButtons?: boolean;
 }
@@ -46,17 +48,29 @@ function makeDummyUser(user: { username: string; id?: string; avatar?: string; }
     return newUser;
 }
 
-export const ThemeCard: React.FC<ThemeCardProps> = ({ theme, themeLinks, likedThemes, setThemeLinks, removeButtons, removePreview }) => {
+export const ThemeCard: React.FC<ThemeCardProps> = ({ theme, themeLinks, enabledThemeLinks, likedThemes, setThemeLinks, setEnabledThemeLinks, removeButtons, removePreview }) => {
 
     const getUser = (id: string, username: string) => UserUtils.getUser(id) ?? makeDummyUser({ username, id });
 
+    const themeEnabled = enabledThemeLinks.includes(`${apiUrl}/${theme.id}`);
+
     const handleAddRemoveTheme = () => {
-        const onlineThemeLinks = themeLinks.includes(`${apiUrl}/${theme.id}`)
-            ? themeLinks.filter(link => link !== `${apiUrl}/${theme.id}`)
-            : [...themeLinks, `${apiUrl}/${theme.id}`];
+        const link = `${apiUrl}/${theme.id}`;
+        const onlineThemeLinks = themeLinks.includes(link)
+            ? themeLinks.filter(l => l !== link)
+            : [...themeLinks, link];
 
         setThemeLinks(onlineThemeLinks);
         Settings.themeLinks = onlineThemeLinks;
+
+        // Keep the enabled list and the online-themes switch in sync so the
+        // theme actually gets applied (the theme loader only applies enabled links)
+        const newEnabled = themeEnabled
+            ? Settings.enabledThemeLinks.filter(l => l !== link)
+            : [...Settings.enabledThemeLinks, link];
+        if (!themeEnabled) Settings.enableOnlineThemes = true;
+        Settings.enabledThemeLinks = newEnabled;
+        setEnabledThemeLinks(newEnabled);
     };
 
     const handleThemeAttributesCheck = () => {
@@ -135,11 +149,11 @@ export const ThemeCard: React.FC<ThemeCardProps> = ({ theme, themeLinks, likedTh
                             <Button
                                 onClick={handleThemeAttributesCheck}
                                 size="medium"
-                                variant={themeLinks.includes(`${apiUrl}/${theme.id}`) ? "dangerPrimary" : "positive"}
+                                variant={themeEnabled ? "dangerPrimary" : "positive"}
                                 className={Margins.right8}
                                 disabled={!theme.content || theme.id === "preview"}
                             >
-                                {themeLinks.includes(`${apiUrl}/${theme.id}`) ? "Remove Theme" : "Add Theme"}
+                                {themeEnabled ? "Remove Theme" : "Add Theme"}
                             </Button>
                             <Button
                                 onClick={async () => {

@@ -13,13 +13,14 @@ import { HeadingPrimary, HeadingTertiary } from "@components/Heading";
 import { OpenExternalIcon } from "@components/Icons";
 import { Paragraph } from "@components/Paragraph";
 import { SettingsTab, wrapTab } from "@components/settings";
-import { SearchStatus, Theme, ThemeLikeProps } from "@equicordplugins/themeLibrary/types";
 import { Logger } from "@utils/Logger";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
 import { findCssClassesLazy } from "@webpack";
 import { Button, React, SearchableSelect, TextInput, useEffect, useState } from "@webpack/common";
 
+import { SearchStatus, Theme, ThemeLikeProps } from "../types";
+import { AuthButtons } from "../utils/AuthButtons";
 import { ThemeCard } from "./ThemeCard";
 
 const InputStyles = findCssClassesLazy("inputWrapper", "editable", "error");
@@ -60,9 +61,10 @@ function ThemeTab() {
     const [themes, setThemes] = useState<Theme[]>([]);
     const [filteredThemes, setFilteredThemes] = useState<Theme[]>([]);
     const [themeLinks, setThemeLinks] = useState(Settings.themeLinks);
+    const [enabledThemeLinks, setEnabledThemeLinks] = useState(Settings.enabledThemeLinks);
     const [likedThemes, setLikedThemes] = useState<ThemeLikeProps>();
     const [searchValue, setSearchValue] = useState({ value: "", status: SearchStatus.ALL });
-    const [hideWarningCard, setHideWarningCard] = useState(Settings.plugins.ThemeLibrary.hideWarningCard);
+    const [hideWarningCard, setHideWarningCard] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
@@ -70,7 +72,7 @@ function ThemeTab() {
     const onStatusChange = (status: SearchStatus) => setSearchValue(prev => ({ ...prev, status }));
 
     const themeFilter = (theme: Theme) => {
-        const enabled = themeLinks.includes(`${apiUrl}/${theme.id}`);
+        const enabled = enabledThemeLinks.includes(`${apiUrl}/${theme.id}`);
 
         const tags = new Set(theme.tags.map(tag => tag?.toLowerCase()));
 
@@ -126,6 +128,8 @@ function ThemeTab() {
 
     useEffect(() => {
         setThemeLinks(Settings.themeLinks);
+        setEnabledThemeLinks(Settings.enabledThemeLinks);
+        DataStore.get("ThemeLibrary_hideWarningCard").then(v => setHideWarningCard(v === true));
     }, []);
 
     useEffect(() => {
@@ -178,7 +182,7 @@ function ThemeTab() {
                                 </Paragraph>
                                 <Button
                                     onClick={() => {
-                                        Settings.plugins.ThemeLibrary.hideWarningCard = true;
+                                        DataStore.set("ThemeLibrary_hideWarningCard", true);
                                         setHideWarningCard(true);
                                     }}
                                     size={Button.Sizes.SMALL}
@@ -202,8 +206,10 @@ function ThemeTab() {
                                     key={theme.id}
                                     theme={theme}
                                     themeLinks={themeLinks}
+                                    enabledThemeLinks={enabledThemeLinks}
                                     likedThemes={likedThemes}
                                     setThemeLinks={setThemeLinks}
+                                    setEnabledThemeLinks={setEnabledThemeLinks}
                                     removePreview={true}
                                 />
                             ))}
@@ -242,8 +248,10 @@ function ThemeTab() {
                                     key={theme.id}
                                     theme={theme}
                                     themeLinks={themeLinks}
+                                    enabledThemeLinks={enabledThemeLinks}
                                     likedThemes={likedThemes}
                                     setThemeLinks={setThemeLinks}
+                                    setEnabledThemeLinks={setEnabledThemeLinks}
                                 />
                             )) : <div
                                 style={{
@@ -263,6 +271,7 @@ function ThemeTab() {
                             </div>
                             }
                         </div>
+                        <AuthButtons />
                     </>)}
             </>
         </div>

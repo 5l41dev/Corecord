@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { BackupRestoreIcon, CloudIcon, LogIcon, MainSettingsIcon, PaintbrushIcon, PatchHelperIcon, PluginsIcon, UpdaterIcon } from "@components/Icons";
+import { BackupRestoreIcon, CloudIcon, LogIcon, PaintbrushIcon, PatchHelperIcon, PencilSparkleIcon, PluginsIcon, UpdaterIcon } from "@components/Icons";
 import {
     BackupAndRestoreTab,
     ChangelogTab,
@@ -16,6 +16,12 @@ import {
     UpdaterTab,
     VencordTab,
 } from "@components/settings";
+import { CreateThemeTab } from "@components/settings/tabs/createTheme/CreateThemeTab";
+import IconsTab from "@components/settings/tabs/iconViewer/components/IconsTab";
+import { IconViewerIcon } from "@components/settings/tabs/iconViewer/IconViewerIcon";
+import ThemeTab from "@components/settings/tabs/themeLibrary/components/ThemeTab";
+import { ThemeLibraryIcon } from "@components/settings/tabs/themeLibrary/utils/ThemeLibraryIcon";
+import { CorecordIcon } from "@components/settings/tabs/vencord/CreditsModal";
 import { gitHashShort } from "@shared/vencordUserAgent";
 import { Devs } from "@utils/constants";
 import { isTruthy } from "@utils/guards";
@@ -98,10 +104,10 @@ interface SettingsLayoutBuilder {
 const settings = definePluginSettings({
     settingsLocation: {
         type: OptionType.SELECT,
-        description: "Where to put the Equicord settings section",
+        description: "Where to put the Corecord settings section",
         options: [
-            { label: "At the very top", value: "top" },
-            { label: "Above Billing section", value: "aboveNitro", default: true },
+            { label: "At the very top", value: "top", default: true },
+            { label: "Above Billing section", value: "aboveNitro" },
             { label: "Below Billing section", value: "belowNitro" },
             { label: "Above Games & Apps Settings", value: "aboveActivity" },
             { label: "Below Games & Apps Settings", value: "belowActivity" },
@@ -110,7 +116,7 @@ const settings = definePluginSettings({
     },
     includeVencordInfoWhenCopying: {
         type: OptionType.BOOLEAN,
-        description: "Also copy Equicord info (Equicord, Electron, Chromium) when clicking the version info in the bottom left area of the Settings page",
+        description: "Also copy Corecord info (Corecord, Electron, Chromium) when clicking the version info in the bottom left area of the Settings page",
         default: true
     }
 });
@@ -193,10 +199,10 @@ export default definePlugin({
         const equicordEntries: SettingsLayoutNode[] = [
             buildEntry({
                 key: "equicord_main",
-                title: "Equicord",
-                panelTitle: "Equicord Settings",
+                title: "Corecord",
+                panelTitle: "Corecord Settings",
                 Component: VencordTab,
-                Icon: MainSettingsIcon
+                Icon: CorecordIcon
             }),
             buildEntry({
                 key: "equicord_plugins",
@@ -210,10 +216,29 @@ export default definePlugin({
                 Component: ThemesTab,
                 Icon: PaintbrushIcon
             }),
+            buildEntry({
+                key: "equicord_create_theme",
+                title: "Create Theme",
+                panelTitle: "Theme Creator",
+                Component: CreateThemeTab,
+                Icon: PencilSparkleIcon
+            }),
+            buildEntry({
+                key: "equicord_icon_viewer",
+                title: "Icon Viewer",
+                Component: IconsTab,
+                Icon: IconViewerIcon
+            }),
+            buildEntry({
+                key: "equicord_theme_library",
+                title: "Theme Library",
+                Component: ThemeTab,
+                Icon: ThemeLibraryIcon
+            }),
             !IS_UPDATER_DISABLED && UpdaterTab && buildEntry({
                 key: "equicord_updater",
                 title: "Updater",
-                panelTitle: "Equicord Updater",
+                panelTitle: "Corecord Updater",
                 Component: UpdaterTab,
                 Icon: UpdaterIcon
             }),
@@ -248,7 +273,7 @@ export default definePlugin({
         const equicordSection: SettingsLayoutNode = {
             key: "equicord_section",
             type: LayoutTypes.SECTION,
-            useTitle: () => "Equicord Settings",
+            useTitle: () => "Corecord Settings",
             buildLayout: () => equicordEntries
         };
 
@@ -314,7 +339,7 @@ export default definePlugin({
     getInfoRows() {
         const { electronVersion, chromiumVersion, getVersionInfo } = this;
 
-        const rows = [`Equicord ${gitHashShort}${getVersionInfo()}`];
+        const rows = [`Corecord ${gitHashShort}${getVersionInfo()}`];
 
         if (electronVersion) rows.push(`Electron ${electronVersion}`);
         if (chromiumVersion) rows.push(`Chromium ${chromiumVersion}`);

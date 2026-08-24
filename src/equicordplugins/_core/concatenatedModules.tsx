@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { IconsDef } from "@equicordplugins/iconViewer/types";
+import type { IconsDef } from "@components/settings/tabs/iconViewer/types";
 import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
@@ -12,6 +12,7 @@ export let iconsModule: IconsDef;
 
 export default definePlugin({
     name: "ConcatenatedModules",
+    enabledByDefault: true,
     description: "Extract modules that have been concatenated by the bundler",
     authors: [Devs.thororen],
     patches: [

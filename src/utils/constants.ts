@@ -18,6 +18,9 @@
 
 export const REACT_GLOBAL = "Vencord.Webpack.Common.React";
 
+// Corecord
+export const CORECORD_ICON_URL = "https://i.imgur.com/Gr7MMmg.png";
+
 // Equicord
 export const SUPPORT_CHANNEL_ID = "1297590739911573585";
 export const GUILD_ID = "1173279886065029291";
@@ -689,6 +692,18 @@ export const Devs = /* #__PURE__*/ Object.freeze({
     Davri: {
         name: "Davri",
         id: 457579346282938368n
+    },
+    coll: {
+        name: "coll",
+        id: 0n
+    },
+    viciouscal: {
+        name: "viciouscal",
+        id: 0n
+    },
+    fiveSlashOne: {
+        name: "5 (5l41)",
+        id: 0n
     }
 } satisfies Record<string, Dev>);
 

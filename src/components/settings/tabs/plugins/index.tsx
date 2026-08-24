@@ -45,7 +45,7 @@ import Plugins, { ExcludedPlugins, PluginMeta } from "~plugins";
 
 import { PluginCard } from "./PluginCard";
 import { openWarningModal } from "./PluginModal";
-import { StockPluginsCard, UserPluginsCard } from "./PluginStatCards";
+import { CorecordPluginsCard, StockPluginsCard, UserPluginsCard } from "./PluginStatCards";
 import { UIElementsButton } from "./UIElements";
 
 export const cl = classNameFactory("vc-plugins-");
@@ -104,6 +104,7 @@ const enum SearchStatus {
     ENABLED,
     DISABLED,
     EQUICORD,
+    CORECORD,
     VENCORD,
     NEW,
     USER_PLUGINS,
@@ -228,6 +229,9 @@ export default function PluginSettings() {
                 break;
             case SearchStatus.EQUICORD:
                 if (!PluginMeta[plugin.name].folderName.startsWith("src/equicordplugins/")) return false;
+                break;
+            case SearchStatus.CORECORD:
+                if (!PluginMeta[plugin.name].folderName.startsWith("src/corecordplugins/")) return false;
                 break;
             case SearchStatus.VENCORD:
                 if (!PluginMeta[plugin.name].folderName.startsWith("src/plugins/")) return false;
@@ -361,17 +365,20 @@ export default function PluginSettings() {
     }
 
     // Code directly taken from supportHelper.tsx
-    const { totalStockPlugins, totalUserPlugins, enabledStockPlugins, enabledUserPlugins, enabledPlugins } = useMemo(() => {
+    const { totalStockPlugins, totalUserPlugins, enabledStockPlugins, enabledUserPlugins, totalCorecordPlugins, enabledCorecordPlugins, enabledPlugins } = useMemo(() => {
         const isApiPlugin = (plugin: string) => plugin.endsWith("API") || Plugins[plugin].required;
 
         const totalPlugins = Object.keys(Plugins).filter(p => !isApiPlugin(p));
         const enabledPlugins = Object.keys(Plugins).filter(p => isPluginEnabled(p) && !isApiPlugin(p));
 
-        const totalStockPlugins = totalPlugins.filter(p => !PluginMeta[p].userPlugin && !Plugins[p].hidden).length;
+        const isCorecord = (p: string) => PluginMeta[p].folderName.startsWith("src/corecordplugins/");
+        const totalStockPlugins = totalPlugins.filter(p => !PluginMeta[p].userPlugin && !Plugins[p].hidden && !isCorecord(p)).length;
         const totalUserPlugins = totalPlugins.filter(p => PluginMeta[p].userPlugin).length;
-        const enabledStockPlugins = enabledPlugins.filter(p => !PluginMeta[p].userPlugin).length;
+        const totalCorecordPlugins = totalPlugins.filter(p => isCorecord(p) && !Plugins[p].hidden).length;
+        const enabledStockPlugins = enabledPlugins.filter(p => !PluginMeta[p].userPlugin && !isCorecord(p)).length;
         const enabledUserPlugins = enabledPlugins.filter(p => PluginMeta[p].userPlugin).length;
-        return { totalStockPlugins, totalUserPlugins, enabledStockPlugins, enabledUserPlugins, enabledPlugins };
+        const enabledCorecordPlugins = enabledPlugins.filter(p => isCorecord(p)).length;
+        return { totalStockPlugins, totalUserPlugins, enabledStockPlugins, enabledUserPlugins, totalCorecordPlugins, enabledCorecordPlugins, enabledPlugins };
     }, [settings.plugins]);
     const pluginsToLoad = Math.min(36, plugins.length);
     const [visibleCount, setVisibleCount] = React.useState(pluginsToLoad);
@@ -403,6 +410,10 @@ export default function PluginSettings() {
                     totalUserPlugins={totalUserPlugins}
                     enabledUserPlugins={enabledUserPlugins}
                 />
+                <CorecordPluginsCard
+                    totalCorecordPlugins={totalCorecordPlugins}
+                    enabledCorecordPlugins={enabledCorecordPlugins}
+                />
             </div>
 
             <div className={cl("ui-elements")}>
@@ -432,6 +443,7 @@ export default function PluginSettings() {
                             { label: "Show Enabled", value: SearchStatus.ENABLED },
                             { label: "Show Disabled", value: SearchStatus.DISABLED },
                             { label: "Show Equicord", value: SearchStatus.EQUICORD },
+                            { label: "Show Corecord", value: SearchStatus.CORECORD },
                             { label: "Show Vencord", value: SearchStatus.VENCORD },
                             { label: "Show New", value: SearchStatus.NEW },
                             hasUserPlugins && { label: "Show UserPlugins", value: SearchStatus.USER_PLUGINS },

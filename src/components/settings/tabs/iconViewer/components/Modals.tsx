@@ -176,6 +176,11 @@ function OtherContextMenu({ iconName, Icon, color }: { iconName: string; Icon: I
             aria-label="Icon Options"
         >
             <Menu.MenuItem
+                id="copy-icon-name"
+                label="Copy Name"
+                action={() => copyWithToast(iconName, "Copied icon name!")}
+            />
+            <Menu.MenuItem
                 id="log-console"
                 label="Log to Console"
                 icon={BugIcon}

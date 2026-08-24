@@ -174,6 +174,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
 
     const pluginMeta = PluginMeta[plugin.name];
     const isEquicordPlugin = pluginMeta.folderName.startsWith("src/equicordplugins/") ?? false;
+    const isCorecordPlugin = pluginMeta.folderName.startsWith("src/corecordplugins/") ?? false;
 
     return (
         <Modal
@@ -264,7 +265,12 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
                                 />
                                 <WebsiteButton
                                     text="Website"
-                                    href={isEquicordPlugin ? `https://equicord.org/plugins/${plugin.name}` : `https://vencord.dev/plugins/${plugin.name}`}
+                                    href={isEquicordPlugin
+                                        ? `https://equicord.org/plugins/${plugin.name}`
+                                        : isCorecordPlugin
+                                            ? `https://github.com/${gitRemote}/tree/main/${pluginMeta.folderName}`
+                                            : `https://vencord.dev/plugins/${plugin.name}`
+                                    }
                                 />
                                 <GithubButton
                                     text="Source Code"

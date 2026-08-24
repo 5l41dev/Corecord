@@ -8,8 +8,6 @@ import { CodeBlock } from "@components/CodeBlock";
 import { Heading } from "@components/Heading";
 import { Heart } from "@components/Heart";
 import { Paragraph } from "@components/Paragraph";
-import { Theme, ThemeInfoModalProps } from "@equicordplugins/themeLibrary/types";
-import { ClockIcon, WarningIcon } from "@equicordplugins/themeLibrary/utils/Icons";
 import { copyToClipboard } from "@utils/clipboard";
 import { openInviteModal } from "@utils/discord";
 import { Margins } from "@utils/margins";
@@ -17,6 +15,8 @@ import type { PluginNative } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 import { Button, Modal, openModal, Parser, React, showToast, Toasts } from "@webpack/common";
 
+import { Theme, ThemeInfoModalProps } from "../types";
+import { ClockIcon, WarningIcon } from "../utils/Icons";
 import { logger } from "./ThemeTab";
 
 const Native = VencordNative.pluginHelpers.ThemeLibrary as PluginNative<typeof import("../native")>;

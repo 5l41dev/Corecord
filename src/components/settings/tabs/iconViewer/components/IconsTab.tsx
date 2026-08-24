@@ -6,26 +6,28 @@
 
 import { Button } from "@components/Button";
 import { Heading } from "@components/Heading";
+import { Paragraph } from "@components/Paragraph";
 import { SettingsTab, wrapTab } from "@components/settings";
 import { TooltipContainer } from "@components/TooltipContainer";
-import { iconsModule } from "@equicordplugins/_core/concatenatedModules";
 import { debounce } from "@shared/debounce";
+import { copyWithToast } from "@utils/discord";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
 import { useIntersection } from "@utils/react";
 import { Icon } from "@vencord/discord-types";
-import { Clickable, TextInput, useCallback, useEffect, useMemo, useState } from "@webpack/common";
+import { Clickable, TextInput, Tooltip, useCallback, useEffect, useMemo, useState } from "@webpack/common";
 
+import { iconsModule } from "../iconsModule";
 import { IconsDef } from "../types";
 import { openIconModal } from "./Modals";
 
 let cachedIcons: IconsDef | null = null;
 
 function getIcons(): IconsDef {
-    if (cachedIcons) return cachedIcons;
+    if (cachedIcons && Object.keys(cachedIcons).length) return cachedIcons;
 
     cachedIcons = Object.fromEntries(
-        Object.entries(iconsModule).filter(([name, fn]) =>
+        Object.entries(iconsModule ?? {}).filter(([name, fn]) =>
             typeof fn === "function" && name.endsWith("Icon")
         )
     );
@@ -55,7 +57,18 @@ function IconItem({ iconName, Icon }: { iconName: string; Icon: Icon; }) {
                     <Icon className="vc-icon-icon" size="lg" width={32} height={32} color="var(--interactive-icon-default)" fill={fill} />
                 </div>
             </Clickable>
-            <Heading className="vc-icon-title" tag="h3">{iconName}</Heading>
+            <Tooltip text="Click to copy name">
+                {props => (
+                    <Heading
+                        {...props}
+                        className={classes("vc-icon-title", "vc-icon-title-copy")}
+                        tag="h3"
+                        onClick={() => copyWithToast(iconName, "Copied icon name!")}
+                    >
+                        {iconName}
+                    </Heading>
+                )}
+            </Tooltip>
         </div>
     );
 }
@@ -65,7 +78,22 @@ function IconsTab() {
     const [search, setSearch] = useState("");
     const [searchByFunction, setSearchByFunction] = useState(false);
 
-    const icons = useMemo(() => getIcons(), []);
+    // The icons module may take a moment to be captured after boot — re-render
+    // periodically until it shows up so the tab is never stuck empty.
+    const [iconsReady, setIconsReady] = useState(() => Object.keys(getIcons()).length > 0);
+
+    useEffect(() => {
+        if (iconsReady) return;
+        const interval = setInterval(() => {
+            if (Object.keys(getIcons()).length > 0) {
+                setIconsReady(true);
+                clearInterval(interval);
+            }
+        }, 750);
+        return () => clearInterval(interval);
+    }, [iconsReady]);
+
+    const icons = useMemo(() => getIcons(), [iconsReady]);
 
     const debouncedSetSearch = useMemo(
         () => debounce((query: string) => setSearch(query), 150),
@@ -103,9 +131,28 @@ function IconsTab() {
 
     const visibleIcons = filteredIcons.slice(0, visibleCount);
 
+    if (!filteredIcons.length) {
+        return (
+            <SettingsTab>
+                <div className={classes(Margins.top16, "vc-icon-stats")}>
+                    <Paragraph className={Margins.bottom8}>
+                        No icons found yet — waiting for Discord's icon module to load…
+                    </Paragraph>
+                </div>
+            </SettingsTab>
+        );
+    }
+
     return (
         <SettingsTab>
-            <div className={classes(Margins.top16, "vc-icon-tab-search-bar-grid")}>
+            <div className={classes(Margins.top16, "vc-icon-stats")}>
+                <Paragraph className={Margins.bottom8}>
+                    Showing <b>{visibleIcons.length}</b> of <b>{filteredIcons.length}</b> icons
+                    {search && <> matching "{search}"</>}
+                    {" "}— click an icon for details (sizes, colors, usage), click its name to copy it.
+                </Paragraph>
+            </div>
+            <div className={classes(Margins.bottom16, "vc-icon-tab-search-bar-grid")}>
                 <TextInput autoFocus value={searchInput} placeholder={`Search ${Object.keys(icons).length} icons...`} onChange={onSearch} />
                 <TooltipContainer text="Search by function context">
                     <Button

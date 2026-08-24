@@ -39,6 +39,24 @@
     max-width: 64px;
 }
 
+.vc-icon-title-copy {
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+}
+
+.vc-icon-title-copy:hover {
+    color: var(--text-normal);
+}
+
+.vc-icon-stats {
+    color: var(--text-muted);
+}
+
+.vc-icon-stats b {
+    color: var(--text-normal);
+}
+
 .vc-icon-tab-search-bar-grid {
     display: flex;
     gap: 8px;
