@@ -92,11 +92,11 @@ Thank you to [Vendicated](https://github.com/Vendicated) for creating [Vencord](
 
 ## Star History
 
-<a href="https://www.star-history.com/#5l41dev/Corecord&type=date&legend=top-left">
+<a href="https://star-history.com/#5l41dev/Corecord&type=date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=5l41dev/Corecord&type=date&theme=dark&legend=top-left&sealed_token=2x2kZTgWUABFi5xlxr6v4SsUpMdlrwCGiBPxPfkNTSJ9Fv-zmCrdyym5vIy_YVQ76A" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=5l41dev/Corecord&type=date&legend=top-left&sealed_token=2x2kZTgWUABFi5xlxr6v4SsUpMdlrwCGiBPxPfkNTSJ9Fv-zmCrdyym5vIy_YVQ76A" />
-    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=5l41dev/Corecord&type=date&legend=top-left&sealed_token=2x2kZTgWUABFi5xlxr6v4SsUpMdlrwCGiBPxPfkNTSJ9Fv-zmCrdyym5vIy_YVQ76A" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=5l41dev/Corecord&type=date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=5l41dev/Corecord&type=date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=5l41dev/Corecord&type=date" />
   </picture>
 </a>
 
