@@ -12,14 +12,14 @@
  * builds, and injects into Discord. Any old Equicord/Vencord patch on
  * your Discord install is replaced automatically.
  *
- * Usage:  .\install.ps1 [-Repo https://github.com/Corecord/Corecord] [-Branch main]
+ * Usage:  .\install.ps1 [-Repo https://github.com/5l41dev/Corecord] [-Branch main]
  *
  * Remote one-liner (downloads to temp first so the script runs from disk):
- *   powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Corecord/Corecord/main/install.ps1 -OutFile $env:TEMP\corecord-install.ps1; & $env:TEMP\corecord-install.ps1"
+ *   powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/5l41dev/Corecord/main/install.ps1 -OutFile $env:TEMP\corecord-install.ps1; & $env:TEMP\corecord-install.ps1"
 #>
 [CmdletBinding()]
 param(
-    [string]$Repo = "https://github.com/Corecord/Corecord",
+    [string]$Repo = "https://github.com/5l41dev/Corecord",
     [string]$Branch = "main",
     [switch]$NoBuild
 )

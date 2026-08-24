@@ -1,4 +1,4 @@
-# [<img src="https://i.imgur.com/Gr7MMmg.png" width="40" align="left" alt="Corecord">](https://github.com/Corecord/Corecord) Corecord
+# [<img src="https://i.imgur.com/Gr7MMmg.png" width="40" align="left" alt="Corecord">](https://github.com/5l41dev/Corecord) Corecord
 
 Corecord is a fork of [Equicord](https://github.com/Equicord/Equicord), which is itself a fork of [Vencord](https://github.com/Vendicated/Vencord), with over 300+ plugins.
 
@@ -25,7 +25,7 @@ PowerShell scripts, no external installer binary needed. Download the repo (or c
 Remote one-liner (replace the URL with your repo once it exists):
 
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/Corecord/Corecord/main/install.ps1 -OutFile $env:TEMP\corecord-install.ps1; & $env:TEMP\corecord-install.ps1"
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/5l41dev/Corecord/main/install.ps1 -OutFile $env:TEMP\corecord-install.ps1; & $env:TEMP\corecord-install.ps1"
 ```
 
 Installing over an old Equicord/Vencord patch replaces it automatically. Any existing patch is
@@ -52,7 +52,7 @@ npm i -g pnpm
 Clone Corecord:
 
 ```shell
-git clone https://github.com/Corecord/Corecord
+git clone https://github.com/5l41dev/Corecord
 cd Corecord
 ```
 
@@ -92,11 +92,11 @@ Thank you to [Vendicated](https://github.com/Vendicated) for creating [Vencord](
 
 ## Star History
 
-<a href="https://star-history.com/#Corecord/Corecord&Timeline">
+<a href="https://www.star-history.com/#5l41dev/Corecord&type=date&legend=top-left">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Corecord/Corecord&type=Timeline&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Corecord/Corecord&type=Timeline" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Corecord/Corecord&type=Timeline" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=5l41dev/Corecord&type=date&theme=dark&legend=top-left&sealed_token=2x2kZTgWUABFi5xlxr6v4SsUpMdlrwCGiBPxPfkNTSJ9Fv-zmCrdyym5vIy_YVQ76A" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=5l41dev/Corecord&type=date&legend=top-left&sealed_token=2x2kZTgWUABFi5xlxr6v4SsUpMdlrwCGiBPxPfkNTSJ9Fv-zmCrdyym5vIy_YVQ76A" />
+    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=5l41dev/Corecord&type=date&legend=top-left&sealed_token=2x2kZTgWUABFi5xlxr6v4SsUpMdlrwCGiBPxPfkNTSJ9Fv-zmCrdyym5vIy_YVQ76A" />
   </picture>
 </a>
 
