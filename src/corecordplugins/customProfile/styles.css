@@ -1,0 +1,576 @@
+/* ── Custom Profile — Corecord Plugin Styles ── */
+
+.cp-modal-root {
+    width: 580px !important;
+    max-width: 90vw !important;
+    overflow: hidden;
+    border-radius: 16px;
+    background-color: var(--background-floating) !important;
+    box-shadow: 0 12px 32px rgb(0 0 0 / 40%);
+    font-family: 'gg sans', 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--text-normal);
+}
+
+/* ── Header ── */
+.cp-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--header-primary);
+    padding: 24px 24px 16px;
+    background: transparent;
+}
+
+.cp-header-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--header-primary);
+    letter-spacing: -0.2px;
+}
+
+/* ── Single-Column Layout ── */
+.cp-layout {
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    max-height: 75vh;
+}
+
+/* ── Tabs (Segmented Control) ── */
+.cp-tabs {
+    display: flex;
+    margin: 0 24px 16px;
+    padding: 4px;
+    background: var(--background-secondary-alt);
+    border-radius: 14px;
+    gap: 4px;
+}
+
+.cp-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--interactive-normal);
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border: none;
+    background: none;
+    font-family: inherit;
+}
+
+.cp-tab:hover {
+    color: var(--interactive-hover);
+    background: rgb(255 255 255 / 3%);
+}
+
+.cp-tab.cp-tab--active {
+    color: var(--header-primary);
+    background: var(--background-modifier-hover);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+}
+
+/* ── Form Content ── */
+.cp-settings-content {
+    padding: 0 24px 24px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cp-settings-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cp-settings-content::-webkit-scrollbar-thumb {
+    background: var(--background-modifier-hover);
+    border-radius: 10px;
+}
+
+.cp-custom-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cp-custom-scroll::-webkit-scrollbar-track {
+    background: var(--background-floating);
+    border-radius: 8px;
+}
+
+.cp-custom-scroll::-webkit-scrollbar-thumb {
+    background: var(--background-modifier-hover);
+    border-radius: 8px;
+}
+
+.cp-custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--interactive-normal);
+}
+
+/* ── Form Elements ── */
+.cp-label,
+.cp-section-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.cp-description {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* ── Form Fields ── */
+.cp-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.cp-input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: var(--input-background);
+    color: var(--text-normal) !important;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cp-input:hover {
+    background: var(--background-modifier-hover);
+}
+
+.cp-input:focus {
+    background: var(--input-background);
+    border-color: var(--brand-experiment-500);
+    box-shadow: 0 0 0 3px rgb(88 101 242 / 15%);
+}
+
+.cp-input::placeholder {
+    color: var(--interactive-placeholder);
+}
+
+.cp-input[type="date"] {
+    color-scheme: dark;
+}
+
+.cp-divider {
+    height: 1px;
+    background: var(--background-modifier-accent);
+    margin: 4px 0;
+    border-radius: 2px;
+}
+
+/* ── Image Uploads ── */
+.cp-image-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--background-secondary);
+    padding: 12px;
+    border-radius: 14px;
+    transition: background 0.2s ease;
+}
+
+.cp-image-card:hover {
+    background: var(--background-modifier-hover);
+}
+
+.cp-image-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 40%);
+}
+
+.cp-image-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.cp-image-inputs .cp-input {
+    background: var(--background-floating);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    margin: 0;
+}
+
+.cp-image-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cp-image-file-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--background-modifier-hover);
+    color: var(--text-muted);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-family: inherit;
+}
+
+.cp-image-file-btn:hover {
+    background: var(--interactive-normal);
+    color: var(--header-primary);
+    transform: translateY(-1px);
+}
+
+.cp-image-file-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.cp-image-clear-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgb(237 66 69 / 8%);
+    color: var(--interactive-normal);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    flex-shrink: 0;
+}
+
+.cp-image-clear-btn:hover {
+    background: rgb(237 66 69 / 18%);
+    color: var(--status-danger);
+}
+
+.cp-clear-btn {
+    background: none;
+    border: none;
+    color: var(--interactive-normal);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cp-clear-btn:hover {
+    color: var(--header-primary);
+    background: var(--background-modifier-hover);
+}
+
+/* ── Toggles ── */
+.cp-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: var(--background-secondary);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.cp-toggle-row:hover {
+    background: var(--background-modifier-hover);
+    transform: translateY(-1px);
+}
+
+.cp-toggle-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cp-toggle-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--header-primary);
+    letter-spacing: -0.2px;
+}
+
+.cp-toggle-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.cp-toggle {
+    width: 48px;
+    height: 28px;
+    border-radius: 14px;
+    background: var(--background-modifier-hover);
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cp-toggle--on {
+    background: var(--status-positive);
+}
+
+.cp-toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--white-500);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+}
+
+.cp-toggle--on .cp-toggle-thumb {
+    transform: translateX(20px);
+}
+
+/* ── Colors ── */
+.cp-color-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--background-secondary);
+    padding: 12px 16px;
+    border-radius: 12px;
+}
+
+.cp-color-swatch {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+    overflow: hidden;
+}
+
+.cp-color-swatch::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.cp-color-swatch::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.cp-color-swatch:hover {
+    transform: scale(1.1);
+}
+
+.cp-color-input {
+    flex: 1;
+}
+
+/* ── Badges Selection ── */
+.cp-badges-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.cp-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 4px 0;
+}
+
+.cp-badge {
+    background: var(--background-secondary-alt);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 8px 12px;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+}
+
+.cp-badge img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.cp-badge:hover {
+    background: var(--background-modifier-hover);
+    color: var(--header-primary);
+    transform: translateY(-2px);
+}
+
+.cp-badge--on {
+    background: rgb(88 101 242 / 15%) !important;
+    border-color: var(--brand-experiment-500) !important;
+    color: var(--header-primary) !important;
+}
+
+/* ── Connections ── */
+.cp-connections {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cp-connection-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--background-secondary);
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+.cp-connection-row:hover {
+    background: var(--background-modifier-hover);
+}
+
+.cp-connection-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.cp-connection-inputs {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+}
+
+.cp-connection-inputs .cp-input {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+}
+
+.cp-connection-remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: none;
+    border: none;
+    color: var(--interactive-normal);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.cp-connection-remove:hover {
+    color: var(--status-danger);
+    background: rgb(237 66 69 / 10%);
+}
+
+/* ── Action Buttons ── */
+.cp-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 4px;
+    border-top: 1px solid var(--background-modifier-accent);
+    margin-top: 4px;
+}
+
+/* ── Footer ── */
+.cp-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 24px;
+    background: var(--background-floating);
+    border-top: 1px solid var(--background-modifier-accent);
+}
+
+.cp-btn {
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+}
+
+.cp-btn-ghost {
+    background: transparent;
+    color: var(--interactive-normal) !important;
+}
+
+.cp-btn-ghost:hover:not(:disabled) {
+    color: var(--header-primary) !important;
+    background: rgb(255 255 255 / 5%);
+}
+
+.cp-btn-danger,
+.cp-btn-primary {
+    background: transparent;
+    color: var(--status-danger) !important;
+}
+
+.cp-btn-danger:hover:not(:disabled),
+.cp-btn-primary:hover:not(:disabled) {
+    background: rgb(237 66 69 / 10%);
+}
+
+.cp-btn-primary.cp-btn-solid {
+    background: var(--brand-experiment-500);
+    color: var(--white-500);
+    box-shadow: 0 4px 12px rgb(88 101 242 / 25%);
+}
+
+.cp-btn-primary.cp-btn-solid:hover:not(:disabled) {
+    background: var(--brand-experiment-560);
+    box-shadow: 0 6px 16px rgb(88 101 242 / 35%);
+    transform: translateY(-1px);
+}
+
+.cp-btn-primary.cp-btn-solid:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgb(88 101 242 / 25%);
+}

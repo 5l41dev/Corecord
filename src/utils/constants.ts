@@ -61,6 +61,8 @@ export interface Dev {
     name: string;
     id: bigint;
     badge?: boolean;
+    /** Custom avatar URL, used when the dev has no Discord ID (id = 0n) or wants a custom pfp */
+    avatar?: string;
 }
 
 /**
@@ -703,7 +705,8 @@ export const Devs = /* #__PURE__*/ Object.freeze({
     },
     fiveSlashOne: {
         name: "5 (5l41)",
-        id: 0n
+        id: 0n,
+        avatar: "https://i.imgur.com/o0OwkSL.jpeg"
     }
 } satisfies Record<string, Dev>);
 

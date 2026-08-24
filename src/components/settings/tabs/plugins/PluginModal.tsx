@@ -57,7 +57,7 @@ interface PluginModalProps extends RenderModalProps {
     onRestartNeeded(key: string): void;
 }
 
-export function makeDummyUser(user: { username: string; id?: string; avatar?: string; }) {
+export function makeDummyUser(user: { username: string; id?: string; avatar?: string; avatarUrl?: string; }) {
     const newUser = new UserRecord({
         username: user.username,
         id: user.id ?? generateId(),
@@ -65,6 +65,9 @@ export function makeDummyUser(user: { username: string; id?: string; avatar?: st
         /** To stop discord making unwanted requests... */
         bot: true,
     });
+
+    // Custom avatar URL (e.g. for devs without a Discord ID); used directly in renderUser
+    (newUser as any).avatarUrl = user.avatarUrl;
 
     FluxDispatcher.dispatch({
         type: "USER_UPDATE",
@@ -98,8 +101,8 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
                 try {
                     const author = user.id
                         ? await UserUtils.getUser(String(user.id))
-                            .catch(() => makeDummyUser({ username: user.name }))
-                        : makeDummyUser({ username: user.name });
+                            .catch(() => makeDummyUser({ username: user.name, avatarUrl: user.avatar }))
+                        : makeDummyUser({ username: user.name, avatarUrl: user.avatar });
 
                     setAuthors(a => [...a, author]);
                 } catch (e) {
@@ -222,7 +225,7 @@ export default function PluginModal({ plugin, onRestartNeeded, onClose, transiti
                                     >
                                         <img
                                             className={AvatarStyles.avatar}
-                                            src={user.getAvatarURL(void 0, 80, true)}
+                                            src={(user as any).avatarUrl ?? user.getAvatarURL(void 0, 80, true)}
                                             alt={user.username}
                                             title={user.username}
                                         />

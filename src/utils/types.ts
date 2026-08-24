@@ -120,6 +120,8 @@ export interface Patch {
 export interface PluginAuthor {
     name: string;
     id: BigInt;
+    /** Custom avatar URL, used when the dev has no Discord ID or wants a custom pfp */
+    avatar?: string;
 }
 
 export interface Plugin extends PluginDef {
