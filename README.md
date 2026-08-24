@@ -91,12 +91,12 @@ Thank you to [Vendicated](https://github.com/Vendicated) for creating [Vencord](
 
 ## Star History
 
-<a href="https://star-history.com/#Equicord/Equicord&Timeline">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline&theme=dark&sealed_token=64drv2U7WiV6dQ5VRbOZdxHT3mRzxUzhVvfm5qt1VRpGjVPje0PbObjibX2FYe4zd-h36lCAGZ873gAgb_5_tAzUBixUVbtaLHqy1fNH6PkQP_PqPdKztatlI2s17T9IUFzRyhYynmJ1-H4idFFzEAMN1gRZlVvvmJ71P0LovJPOIqTT7uHIubWcHzxC" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline&sealed_token=64drv2U7WiV6dQ5VRbOZdxHT3mRzxUzhVvfm5qt1VRpGjVPje0PbObjibX2FYe4zd-h36lCAGZ873gAgb_5_tAzUBixUVbtaLHqy1fNH6PkQP_PqPdKztatlI2s17T9IUFzRyhYynmJ1-H4idFFzEAMN1gRZlVvvmJ71P0LovJPOIqTT7uHIubWcHzxC" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Equicord/Equicord&type=Timeline&sealed_token=64drv2U7WiV6dQ5VRbOZdxHT3mRzxUzhVvfm5qt1VRpGjVPje0PbObjibX2FYe4zd-h36lCAGZ873gAgb_5_tAzUBixUVbtaLHqy1fNH6PkQP_PqPdKztatlI2s17T9IUFzRyhYynmJ1-H4idFFzEAMN1gRZlVvvmJ71P0LovJPOIqTT7uHIubWcHzxC" />
-  </picture>
+<a href="https://www.star-history.com/?repos=5l41dev%2FCorecord&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=5l41dev/Corecord&type=date&theme=dark&legend=top-left&sealed_token=2x2kZTgWUABFi5xlxr6v4SsUpMdlrwCGiBPxPfkNTSJ9Fv-zmCrdyym5vIy_YVQ76A" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=5l41dev/Corecord&type=date&legend=top-left&sealed_token=2x2kZTgWUABFi5xlxr6v4SsUpMdlrwCGiBPxPfkNTSJ9Fv-zmCrdyym5vIy_YVQ76A" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=5l41dev/Corecord&type=date&legend=top-left&sealed_token=2x2kZTgWUABFi5xlxr6v4SsUpMdlrwCGiBPxPfkNTSJ9Fv-zmCrdyym5vIy_YVQ76A" />
+ </picture>
 </a>
 
 ## Disclaimer
